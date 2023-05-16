@@ -11,6 +11,13 @@ uniform sampler2D image;
 out vec4 FragColor;
 
 void main() {
+    // coloric intake
+    vec3 color = texture(image, model_uv).rgb;
+
+    // grayscale b
+    float grayscale = dot(color, vec3(0.299, 0.587, 0.114));
+
     // Color
-    FragColor = texture(image, model_uv);
+    FragColor = vec4(grayscale, grayscale, grayscale, 1.0);
+
 }

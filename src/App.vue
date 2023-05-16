@@ -182,13 +182,22 @@ export default {
         rect.material = this.materials.standard;
 
         // Animation function - called before each frame gets rendered
+
+        // Cretae time f
+        let time = 0.0;
         this.scene.onBeforeRenderObservable.add(() => {
+            // slowed rippled down by a lot
+            // let delta_time = this.scene.getAnimationRatio() / 60.0;
+            let delta_time = this.scene.getAnimationRatio() / 200.0;
+            time += delta_time;
+
             if (this.filter !== rect.material.name) {
                 rect.material = this.materials[this.filter];
             }
 
             if (this.textures[this.selected_texture] !== null) {
                 this.materials[this.filter].setTexture('image', this.textures[this.selected_texture]);
+                this.materials[this.filter].setFloat('time', time);
             }
         });
 
